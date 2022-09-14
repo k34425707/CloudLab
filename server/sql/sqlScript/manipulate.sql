@@ -1,0 +1,1 @@
+CREATE FUNCTION add_user()

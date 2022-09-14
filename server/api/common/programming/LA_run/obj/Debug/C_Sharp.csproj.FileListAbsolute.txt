@@ -1,0 +1,14 @@
+C:\Users\Username\source\repos\C_Sharp\C_Sharp\obj\Debug\C_Sharp.csproj.AssemblyReference.cache
+C:\Users\Username\source\repos\C_Sharp\C_Sharp\obj\Debug\C_Sharp.csproj.CoreCompileInputs.cache
+C:\Users\Username\source\repos\C_Sharp\C_Sharp\bin\Debug\C_Sharp.exe.config
+C:\Users\Username\source\repos\C_Sharp\C_Sharp\bin\Debug\C_Sharp.exe
+C:\Users\Username\source\repos\C_Sharp\C_Sharp\bin\Debug\C_Sharp.pdb
+C:\Users\Username\source\repos\C_Sharp\C_Sharp\obj\Debug\C_Sharp.exe
+C:\Users\Username\source\repos\C_Sharp\C_Sharp\obj\Debug\C_Sharp.pdb
+C:\git-repos\ours\CloudLab\server\api\common\programming\LA_run\bin\Debug\C_Sharp.exe.config
+C:\git-repos\ours\CloudLab\server\api\common\programming\LA_run\bin\Debug\C_Sharp.exe
+C:\git-repos\ours\CloudLab\server\api\common\programming\LA_run\bin\Debug\C_Sharp.pdb
+C:\git-repos\ours\CloudLab\server\api\common\programming\LA_run\obj\Debug\C_Sharp.csproj.AssemblyReference.cache
+C:\git-repos\ours\CloudLab\server\api\common\programming\LA_run\obj\Debug\C_Sharp.csproj.CoreCompileInputs.cache
+C:\git-repos\ours\CloudLab\server\api\common\programming\LA_run\obj\Debug\C_Sharp.exe
+C:\git-repos\ours\CloudLab\server\api\common\programming\LA_run\obj\Debug\C_Sharp.pdb

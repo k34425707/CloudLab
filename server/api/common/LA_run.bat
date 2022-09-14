@@ -1,0 +1,2 @@
+cd C:\git-repos\ours\CloudLab\server\file\hwTest\0904_TEST\00857138
+C:\git-repos\ours\CloudLab\server\api\common\programming\LA_run_0\bin\Debug\C_Sharp.exe C:\git-repos\ours\CloudLab\server\file\hwTest\0904_TEST\00857138 muxtest3 1

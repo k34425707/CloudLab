@@ -1,0 +1,19 @@
+INPUTS PG_Function DATA;
+ASSIGN DATA 1..0;
+RADIX AUTO;
+UNIT Ms;
+PATTERN
+0.0> 8FFh 0h
+1.0> 2FFh 0h
+2.0> 900h 0h
+10.0> 000h 00b
+                  50.0> 000h 11b
+                 500.0> 000h 10b
+                1000.0> 000h 00b
+                1500.0> 000h 11b
+                2000.0> 000h 01b
+                2500.0> 000h 11b
+                3000.0> 000h 00b
+                3300.0> 000h 01b
+                3500.0> 000h 00b
+;

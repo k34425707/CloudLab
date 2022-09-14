@@ -1,0 +1,11 @@
+C:\Users\Username\source\repos\PG_1\PG_1\bin\x86\Debug\PG_1.exe.config
+C:\Users\Username\source\repos\PG_1\PG_1\bin\x86\Debug\PG_1.exe
+C:\Users\Username\source\repos\PG_1\PG_1\bin\x86\Debug\PG_1.pdb
+C:\Users\Username\source\repos\PG_1\PG_1\bin\x86\Debug\PG_1.xml
+C:\Users\Username\source\repos\PG_1\PG_1\obj\x86\Debug\PG_1.Resources.resources
+C:\Users\Username\source\repos\PG_1\PG_1\obj\x86\Debug\PG_1.vbproj.GenerateResource.cache
+C:\Users\Username\source\repos\PG_1\PG_1\obj\x86\Debug\PG_1.vbproj.CoreCompileInputs.cache
+C:\Users\Username\source\repos\PG_1\PG_1\obj\x86\Debug\PG_1.exe
+C:\Users\Username\source\repos\PG_1\PG_1\obj\x86\Debug\PG_1.xml
+C:\Users\Username\source\repos\PG_1\PG_1\obj\x86\Debug\PG_1.pdb
+C:\Users\Username\source\repos\PG_1\PG_1\obj\x86\Debug\PG_1.vbproj.AssemblyReference.cache
