@@ -3,9 +3,13 @@
 及提供的function
 我假設他匯入學號檔案csv寫在這
 '''
+import csv
+
 from flask import jsonify
-from flask_restful import Resource
+from flask_restful import Resource,request
 from common.DBhandler import DBhandler
+from flask_jwt_extended import  jwt_required
+from common.JWT_handler import JWT_handler
 '''
 我參考的命名規則
 ==========  =====================  ==================================
@@ -28,48 +32,42 @@ class Users(Resource):
         #繼承上層Resource的init
         super().__init__()  
         self.db_handler=DBhandler()
+        self.jwt_handler=JWT_handler()
     
            
-    def get(self):
-        results=self.db_handler.query("SELECT * FROM `user`",True)
-        '''
-        我不確定多個json資料可不可以放在陣列
-        感覺合法
-        但有點奇怪
-        return jsonify(results)
-        '''
-        #有多筆資料
-        items={}
-        for i in range(0,len(results)):
-            items.update({i:results[i]})
-        return jsonify(items)
-
-            
-        
-        
+ 
     
-    '''
-    給路徑檔名csv
-    輸入到資料庫
-    '''
-    def post(self,path="../file/user.csv"):
-        with open(path, mode='r',newline='') as csvfile:
-        
+
+    @jwt_required()
+    def post(self):
+        path="../file/user.csv"
+        userID=self.jwt_handler.readToken()["userID"]
+        sql="SELECT authorization FROM `user` WHERE `userID`={}".format(userID)
+        result=self.db_handler(sql,True)
+        if( len(result)==0 or result[0]["authorization"]!="1" ):
+            return {
+                "message":"you can't do this"
+            }
+        courseName=request.form.get("courseName")
+        file=request.files["file"]
+        file.save("../file/user.csv")
+        with open(path, mode='r',newline='',encoding='utf-8') as csvfile:
             # 讀取 CSV 檔案內容
-            rows = csv.reader(csvfile)
-            '''
-            這裡要取決修課名單的格式
-            '''
+            rows = csv.DictReader(csvfile)
             # 以迴圈輸出每一列
             for row in rows:
-                sql="INSERT INTO `user`(`uId`,`uPassword`,`uName`,`uPrivilege`) VALUES (%s,%s,%s,%s)"
-                self.db_handler.query("INSERT INTO `user`(`uId`={},`uPassword`={},`uName`={},`uPrivilege`={}".format(row[0],'a'+row[0],row[1],'0'))
-
-    def put(self):
-        pass
-    def delete(self):
-        global users
-        users = [item for item in users if item['name'] != name]
-        return {
-            'message': 'Delete done!'
-        }
+                sql="SELECT * FROM `user` WHERE `userID`={}".format(row["userID"])
+                if(len(self.db_handler.query(sql,True))==0):
+                    sql="INSERT INTO `user`(`userID`,`password`,`userName`,`course`,`authorization`) VALUES (\"{}\",\"{}\",\"{}\",\"{}\",\'{}\')".format(row['userID'],"a"+row['userID'],row['userName'],courseName,"0")
+                    self.db_handler.query(sql,False)
+                else:
+                    sql="SELECT course FROM `user` WHERE `userID`={}".format(row["userID"])
+                    result=self.db_handler.query(sql,True)
+                    courses=result[0]["course"].split('/')
+                    if(courseName not in courses):
+                        courses.append(courseName)
+                        courses="/".join(courses)
+                        sql="UPDATE user SET course=\""+courses+"\" WHERE userID=\""+row["userID"]+"\""
+                        self.db_handler.query(sql,False)
+                sql="INSERT INTO`"+ courseName+"`(`userID`,`userName`) VALUES (\"{}\",\"{}\")".format(row['userID'],row['userName'])
+                self.db_handler.query(sql,False)

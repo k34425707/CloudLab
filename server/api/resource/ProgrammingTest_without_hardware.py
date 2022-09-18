@@ -549,40 +549,40 @@ class ProgrammingTest_without_hardware(Resource):
 
         
         ###programming successful -> email letter to notice the user
-        content = MIMEMultipart()  #建立MIMEMultipart物件
-        content["subject"] = "遠端實驗室程式燒錄"  #郵件標題
-        content["from"] = "oceanremotelab@gmail.com"  #寄件者
-        content["to"] = userID + "@mail.ntou.edu.tw" #收件者
-        if(succFlag):
-            if(workType == 0):
-                content.attach(MIMEText("您的程式燒錄成功!!"))  #郵件內容
-            elif(workType == 1):
-                content.attach(MIMEText("您的作業創建成功!!"))  #郵件內容
-            elif(workType == 2):
-                if(judgeFlag and judgeFlag2 and judgeFlag3):
-                    content.attach(MIMEText("您的作業上傳成功!!"))  #郵件內容
-                else:
-                    content.attach(MIMEText("您的作業上傳失敗!!\n請再重新上傳一次"))  #郵件內容
-        else:
-            if(workType == 0):
-                content.attach(MIMEText("您的程式燒錄失敗!!\n請再重新上傳一次"))  #郵件內容
-            elif(workType == 1):
-                content.attach(MIMEText("您的作業創建失敗!!\n請再重新上傳一次"))  #郵件內容
-            elif(workType == 2):
-                content.attach(MIMEText("您的作業上傳失敗!!\n請再重新上傳一次"))  #郵件內容
-        # ckystilkvgqxnodh
+        # content = MIMEMultipart()  #建立MIMEMultipart物件
+        # content["subject"] = "遠端實驗室程式燒錄"  #郵件標題
+        # content["from"] = "oceanremotelab@gmail.com"  #寄件者
+        # content["to"] = userID + "@mail.ntou.edu.tw" #收件者
+        # if(succFlag):
+        #     if(workType == 0):
+        #         content.attach(MIMEText("您的程式燒錄成功!!"))  #郵件內容
+        #     elif(workType == 1):
+        #         content.attach(MIMEText("您的作業創建成功!!"))  #郵件內容
+        #     elif(workType == 2):
+        #         if(judgeFlag and judgeFlag2 and judgeFlag3):
+        #             content.attach(MIMEText("您的作業上傳成功!!"))  #郵件內容
+        #         else:
+        #             content.attach(MIMEText("您的作業上傳失敗!!\n請再重新上傳一次"))  #郵件內容
+        # else:
+        #     if(workType == 0):
+        #         content.attach(MIMEText("您的程式燒錄失敗!!\n請再重新上傳一次"))  #郵件內容
+        #     elif(workType == 1):
+        #         content.attach(MIMEText("您的作業創建失敗!!\n請再重新上傳一次"))  #郵件內容
+        #     elif(workType == 2):
+        #         content.attach(MIMEText("您的作業上傳失敗!!\n請再重新上傳一次"))  #郵件內容
+        # # ckystilkvgqxnodh
 
-        with smtplib.SMTP(host="smtp.gmail.com", port="587") as smtp:  # 設定SMTP伺服器
-            try:
-                smtp.ehlo()  # 驗證SMTP伺服器
-                smtp.starttls()  # 建立加密傳輸
-                smtp.login("oceanremotelab@gmail.com", "ckystilkvgqxnodh")  # 登入寄件者gmail
-                smtp.send_message(content)  # 寄送郵件
-                print("Email complete!")
-            except Exception as e:
-                emailMsg = "But email failed!"
-                print("Email Error message: ", e)    
-        ###
+        # with smtplib.SMTP(host="smtp.gmail.com", port="587") as smtp:  # 設定SMTP伺服器
+        #     try:
+        #         smtp.ehlo()  # 驗證SMTP伺服器
+        #         smtp.starttls()  # 建立加密傳輸
+        #         smtp.login("oceanremotelab@gmail.com", "ckystilkvgqxnodh")  # 登入寄件者gmail
+        #         smtp.send_message(content)  # 寄送郵件
+        #         print("Email complete!")
+        #     except Exception as e:
+        #         emailMsg = "But email failed!"
+        #         print("Email Error message: ", e)    
+        # ###
 
         # print("\ngo to the program end!!\n")
         if(succFlag):

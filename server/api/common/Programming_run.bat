@@ -1,2 +1,2 @@
-cd C:\git-repos\ours\CloudLab\server\file\hwTest\0904_TEST\00857138
-C:\altera\13.0\quartus\bin64\quartus_pgm.exe -m JTAG -o p;00857138.sof
+cd C:\git-repos\ours\CloudLab\server\file\logic\dec
+C:\altera\13.1\quartus\bin64\quartus_pgm.exe -m JTAG -o p;decoder2to4.sof

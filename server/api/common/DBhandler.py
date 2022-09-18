@@ -55,6 +55,9 @@ class DBhandler():
                 txtName  varchar(64) , \
                 txtName2  varchar(64) , \
                 txtName3  varchar(64) , \
+                score  int,\
+                score2 int,\
+                score3 int,\
                 PRIMARY KEY(homeworkName)\
             );")
             self.__connection.commit()

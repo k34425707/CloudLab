@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'bootstrap.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'font-awesome.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'nivo-lightbox/nivo-lightbox.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'nivo-lightbox/default.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'dialog.css')}}"/>
+        <title>作業瀏覽</title>
+        <script language="JavaScript" type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script language="JavaScript" type="text/javascript" src="https://github.com/jquery/jquery-migrate"></script>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    </head>
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+        <div id="root">
+            <div>
+                <nav id="menu" class="navbar navbar-default navbar-fixed-top" style="height: 80px;">
+                    <div style="position: relative; left: 0px;">
+                        <a class="navbar-brand page-scroll" style="position: fixed; top: 10px; left: 0px;" href="#page-top"><img src="{{ url_for('static', filename = 'logo.png')}}"></a>
+                    </div>
+                    <div class="container">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="">
+                                    <a href="http://127.0.0.1:8087/remote" class="page-scroll" style="position: fixed; top: 20px; left: 1030px; font-size: 15px;">遠端燒錄</a>
+                                </li>
+                                <li class="">
+                                    <a href="http://127.0.0.1:8087/course" class="page-scroll" style="position: fixed; top: 20px; left: 1130px; font-size: 15px;">進入課程</a>
+                                </li>
+                                <li class="">
+                                    <input type="button" onclick="password_Change_Check()" class="btn btn-danger" style="position: fixed; top: 30px; left: 1230px; font-size: 15px;" value="更改密碼">
+                                </li>
+                                <li class="">
+                                    <input type="button" onclick="do_logout()" class="btn btn-danger" style="position: fixed; top: 30px; left: 1330px; font-size: 15px;" value="登出">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <h1 style="text-align: center;" id="courseName">作業瀏覽:{{courseName}}</h1>
+                {% if authorzation == '1' %}
+                <div>
+                    <label style="position: relative; left: 190px;">
+                    <input id="show" type="button" class="btn btn-primary mb-2" onclick="show_Newhomework_Dialog()" value="新增作業">
+                    <dialog id="newHomework" class="dialog">
+                        <form class="form-inline mb-2">
+                            <div class="form-group">
+                                <label style="font-size: 200%;">作業名稱 : </label>
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label for="homeworkName" class="sr-only">作業名稱</label>
+                                <input type="text" class="form-control" id="homeworkName" placeholder="請輸入作業名稱">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label style="font-size: 200%;">作業說明 : </label>
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label for="homeworkInfo" class="sr-only">作業說明</label>
+                                <textarea rows="10" cols="20" class="form-control" id="homeworkInfo"  placeholder="請輸入作業內容"></textarea>
+                            </div>
+                            <br>
+                            <input id="close" type="button" class="btn btn-primary mb-2" onclick="summit_NewHomework()" value="創建 ! ">
+                            <input type="button" style="background-color: red;" class="btn btn-primary mb-2" onclick="newhomework_Close()" value="關閉">
+                        </form>
+                    </dialog>
+                    </label>
+                    <label style="position: relative; left: 200px;">
+                    <input type="button" class="btn btn-primary mb-2" onclick="show_Member_Dialog()" value="學生名單">
+                    <dialog id="members" style="width: 480px; height: auto;">
+                        <label>
+                            <input id="csvFile" type="file" accept=".csv" value="新增學生">
+                        </label>
+                        <label>
+                            <input type="button" style="position: relative; left:40px;" class="btn btn-primary mb-2" onclick="summit_Member()" value="繳交 ! ">
+                        </label>
+                        <label style="position: relative; left: 110px;">
+                            <input type="button" style="background-color: red;" class="btn btn-primary mb-2" onclick="member_Close()" value="關閉">
+                        </label>
+                        <table class="table">
+                            <tr style="text-align: center;">
+                                <th colspan="3" style="text-align: center;" scope="col">學生列表</th>
+                            </tr>
+                            <tr>
+                                <th>姓名</th>
+                                <th style="text-align: center;">學號</th>
+                                <th style="text-align: center;">刪除</th>
+                            </tr>
+                            {% for test in members -%}                            
+                                <tr id="member_{{test.userID}}" >
+                                    <td style="text-align: center;">{{ test.userName }}</td>
+                                    <td style="text-align: center;">{{ test.userID }}</td>
+                                    <td style="text-align: center;">
+                                        <input type="button" class="btn btn-primary mb-2" onclick="delete_member('{{ test.userID }}')" value="刪除 ! ">
+                                    </td>
+                                </tr>
+                            {%- endfor %}
+                        </table>
+                    </dialog>
+                    </label>
+                    <label style="position: relative; left: 1100px;">
+                        <input type="button" style="background-color: red;" class="btn btn-primary mb-2" onclick="delete_Course_Check()" value="解散課程">
+                    </label>
+                </div>
+                {% else %}
+                {% endif %}
+                <div style="width: 75%; height: 50%; margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: black;">
+                <table class="table">
+                    <tr style="text-align: center;">
+                        <th style="text-align: center;" scope="col">作業列表</th>
+                    </tr>
+                    {% for homeworkName in homeworks -%}                            
+                        <tr id="{{homeworkName}}">
+                            <td style="text-align: center;"><a href="http://127.0.0.1:8087/course/{{courseName}}/{{homeworkName.homeworkName}}">{{homeworkName.homeworkName}}</a></td>
+                        </tr>
+                    {%- endfor %}
+                </table>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="{{ url_for('static', filename = 'homeworkbrowse.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js.js')}}"></script>
+</html>

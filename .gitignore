@@ -1,0 +1,7 @@
+/server/file
+/server/api/common/LA_run.bat
+/server/api/common/PG_run.bat
+/server/api/common/Programming_run.bat
+/server\api\common\__pycache__\*.*
+server/api/resource/__pycache__/
+server/api/common/__pycache__/

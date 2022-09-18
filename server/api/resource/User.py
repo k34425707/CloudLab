@@ -2,11 +2,12 @@
 更改一個User的resource
 及提供的function
 '''
-from email import parser
-from flask import jsonify
+from flask import jsonify,request
 from flask_restful import Resource
 from common.DBhandler import DBhandler
 from flask_restful import reqparse
+from werkzeug.security import generate_password_hash
+
 '''
 我參考的命名規則
 ==========  =====================  ==================================
@@ -44,7 +45,8 @@ class User(Resource):
         parser.add_argument('uId', required=True)
         parser.add_argument('uName', required=True)
         arg=parser.parse_args()
-        sql="INSERT INTO `user`(`userID`,`password`,`userName`,`email`) VALUES (\"{}\",\"{}\",\"{}\",\"{}\")".format(arg['uId'],"a"+arg['uId'],arg['uName'],arg['uId']+"@mail.ntou.edu.tw")
+
+        sql="INSERT INTO `user`(`userID`,`password`,`userName`,`course`,`authorization`) VALUES (\"{}\",\"{}\",\"{}\",\'{}\',\"{}\")".format(arg['uId'],generate_password_hash(arg["uId"]),arg['uName'],"","1")
         self.db_handler.query(sql,False)
 
         
@@ -52,9 +54,3 @@ class User(Resource):
     def put(self):
         pass
 
-    def delete(self):
-        global users
-        users = [item for item in users if item['name'] != name]
-        return {
-            'message': 'Delete done!'
-        }

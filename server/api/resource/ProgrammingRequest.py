@@ -138,6 +138,7 @@ class ProgrammingRequest(Resource):
                 data = data.strip()
                 # print(data)
                 tmp = data.splitlines()
+                tmp = [x for x in tmp if x != '']    #把無用空格去掉
 
                 timeUnit = tmp[3]
                 timeUnit = timeUnit.strip()[5] #取得時間單位
@@ -352,7 +353,7 @@ class ProgrammingRequest(Resource):
                 ### write Quartus programming bat file
                 with open(batPath + "Programming_run.bat",'w') as fileWrite:
                     fileWrite.write("cd " + UPLOAD_FOLDER)
-                    fileWrite.write("\nC:\\altera\\13.0\\quartus\\bin64\\quartus_pgm.exe -m JTAG -o p;{}".format(sofName))
+                    fileWrite.write("\nC:\\altera\\13.1\\quartus\\bin64\\quartus_pgm.exe -m JTAG -o p;{}".format(sofName))
                 ###
 
                 ### programming the DE0 board
@@ -418,7 +419,7 @@ class ProgrammingRequest(Resource):
                         print("LA process")
                         LAFlag = 1
                         LA_process = subprocess.Popen([batPath + "LA_run.bat"])
-                        time.sleep(18)
+                        time.sleep(12)
                         ###
 
                         ### Run the pattern generator(PG)
@@ -536,7 +537,7 @@ class ProgrammingRequest(Resource):
                         print("LA process")
                         LA_process = subprocess.Popen([batPath + "LA_run.bat"])
                         LAFlag = 1
-                        time.sleep(20)
+                        time.sleep(12)
                         ###
 
                         ### Run the pattern generator(PG)
@@ -573,7 +574,7 @@ class ProgrammingRequest(Resource):
                         print("LA process")
                         LA_process = subprocess.Popen([batPath + "LA_run.bat"])
                         LAFlag = 1
-                        time.sleep(20)
+                        time.sleep(12)
                         ###
 
                         ### Run the pattern generator(PG)
@@ -586,7 +587,7 @@ class ProgrammingRequest(Resource):
                             raise Exception("Error1!Can't generate pattern to board!")
                         ###
                     
-                    time.sleep(20) #sleep for LA
+                    time.sleep(15) #sleep for LA
                     # sem.release()
 
                     # db = DBhandler('localhost','root','','remote_lab')
@@ -650,8 +651,8 @@ class ProgrammingRequest(Resource):
                         db.query(sqlStatement,False)
 
                     for i in range(3):
-                        #誤差設0.1%，超過就算錯
-                        if(differences[i] < 800):
+                        #誤差設0.2%，超過就算錯
+                        if(differences[i] < 2000):
                             totalScore += float(hwScores[i])
                             judgeResults.append("Correct")
                         else:
