@@ -66,6 +66,8 @@ class ProgrammingRequest(Resource):
         className = request.form.get('className','')
         #作業名稱
         homeworkName = request.form.get('homeworkName','')
+        #判斷是何種電路    0:組合邏輯     1:序向邏輯
+        sequential = request.form.get('sequential','0')
         #設定資料夾路徑
         # UPLOAD_FOLDER = "C:\\git-repos\\ours\\CloudLab\\server\\file\\" + userID
         # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -291,7 +293,8 @@ class ProgrammingRequest(Resource):
                     # # print(result[0]['courseID'])
                     tableName = className + "_HW"
                     #get the pgv files name
-                    sqlStatement = "SELECT txtName,txtName2,txtName3 FROM " + tableName + " WHERE homeworkName = '" + homeworkName + "';"
+                    sqlStatement = "SELECT txtName,txtName2,txtName3,sequential FROM " + tableName + " WHERE homeworkName = '" + homeworkName + "';"
+                    # sqlStatement = "SELECT txtName,txtName2,txtName3 FROM " + tableName + " WHERE homeworkName = '" + homeworkName + "';"
                     result = db.query(sqlStatement,True)
                     # print("The result:")
                     # print(result)
@@ -301,6 +304,8 @@ class ProgrammingRequest(Resource):
                     file2 = pgvName2[:-4] + ".txt"
                     pgvName3 = result[0]['txtName3']
                     file3 = pgvName3[:-4] + ".txt"
+                    sequential = result[0]['sequential']
+
                     # print("pgvName:")
                     # print(pgvName1)
                     # print(pgvName2)
@@ -353,7 +358,7 @@ class ProgrammingRequest(Resource):
                 ### write Quartus programming bat file
                 with open(batPath + "Programming_run.bat",'w') as fileWrite:
                     fileWrite.write("cd " + UPLOAD_FOLDER)
-                    fileWrite.write("\nC:\\altera\\13.1\\quartus\\bin64\\quartus_pgm.exe -m JTAG -o p;{}".format(sofName))
+                    fileWrite.write("\nC:\\altera\\13.0\\quartus\\bin64\\quartus_pgm.exe -m JTAG -o p;{}".format(sofName))
                 ###
 
                 ### programming the DE0 board
@@ -398,7 +403,7 @@ class ProgrammingRequest(Resource):
                         ### write LA bat file
                         with open(batPath + "LA_run.bat",'w') as fileWrite:
                             fileWrite.write("cd " + UPLOAD_FOLDER)
-                            fileWrite.write("\nC:\\git-repos\\ours\\CloudLab\\server\\api\\common\\programming\\LA_run\\bin\\Debug\\C_Sharp.exe {}".format(userID))
+                            fileWrite.write("\nC:\\git-repos\\ours\\CloudLab\\server\\api\\common\\programming\\LA_run\\bin\\Debug\\C_Sharp.exe {} {}".format(userID,sequential))
                         ###
 
                         ### programming the DE0 board
@@ -530,7 +535,7 @@ class ProgrammingRequest(Resource):
                         ### write LA bat file
                         with open(batPath + "LA_run.bat",'w') as fileWrite:
                             fileWrite.write("cd " + UPLOAD_FOLDER)
-                            fileWrite.write("\nC:\\git-repos\\ours\\CloudLab\\server\\api\\common\\programming\\LA_run_0\\bin\\Debug\\C_Sharp.exe {} {} {}".format(homeworkPath,pgvName[:-4],"0"))
+                            fileWrite.write("\nC:\\git-repos\\ours\\CloudLab\\server\\api\\common\\programming\\LA_run_0\\bin\\Debug\\C_Sharp.exe {} {} {}".format(homeworkPath,pgvName[:-4],sequential))
                         ###
 
                         ###Run the logic analysis(LA)
@@ -567,7 +572,7 @@ class ProgrammingRequest(Resource):
                         ### write LA bat file
                         with open(batPath + "LA_run.bat",'w') as fileWrite:
                             fileWrite.write("cd " + UPLOAD_FOLDER)
-                            fileWrite.write("\nC:\\git-repos\\ours\\CloudLab\\server\\api\\common\\programming\\LA_run_0\\bin\\Debug\\C_Sharp.exe {} {} {}".format(UPLOAD_FOLDER,pgvName[:-4],"1"))
+                            fileWrite.write("\nC:\\git-repos\\ours\\CloudLab\\server\\api\\common\\programming\\LA_run_0\\bin\\Debug\\C_Sharp.exe {} {} {}".format(UPLOAD_FOLDER,pgvName[:-4],sequential))
                         ###
 
                         ###Run the logic analysis(LA)
@@ -618,7 +623,8 @@ class ProgrammingRequest(Resource):
 
                     tableName = className + "_HW"
 
-                    sqlStatement = "UPDATE " + tableName + " SET `txtName` = '" + pgvName1 + "', `txtName2` = '" + pgvName2 + "', `txtName3` = '" + pgvName3 + "' WHERE `homeworkName` = '" + homeworkName + "';"
+                    sqlStatement = "UPDATE " + tableName + " SET `txtName` = '" + pgvName1 + "', `txtName2` = '" + pgvName2 + "', `txtName3` = '" + pgvName3 + "', `sequential` = '" + sequential + "' WHERE `homeworkName` = '" + homeworkName + "';"
+                    # sqlStatement = "UPDATE " + tableName + " SET `txtName` = '" + pgvName1 + "', `txtName2` = '" + pgvName2 + "', `txtName3` = '" + pgvName3 + "' WHERE `homeworkName` = '" + homeworkName + "';"
                     db.query(sqlStatement,False)
                     print("the sqlStatement:")
                     print(sqlStatement)

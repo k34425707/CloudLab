@@ -1,2 +1,2 @@
-cd C:\git-repos\ours\CloudLab\server\file\logic\dec
-C:\git-repos\ours\CloudLab\server\api\common\programming\LA_run_0\bin\Debug\C_Sharp.exe C:\git-repos\ours\CloudLab\server\file\logic\dec decoder2to4_3 0
+cd C:\git-repos\ours\CloudLab\server\file\decoder\trafficLight\00857148
+C:\git-repos\ours\CloudLab\server\api\common\programming\LA_run_0\bin\Debug\C_Sharp.exe C:\git-repos\ours\CloudLab\server\file\decoder\trafficLight\00857148 decoder2to4_3 0

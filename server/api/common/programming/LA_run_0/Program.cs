@@ -24,6 +24,7 @@ namespace C_Sharp
         string PGVName;
         string HWName;
         string homeworkPathLaw;
+        string sequential;
         bool getWaveData = false;
         bool gfTrMode;
         LARunClass.LA_HW_MODE m_giHwMode;
@@ -69,9 +70,23 @@ namespace C_Sharp
 
         private void SetTrigger()
         {
+            int iTrigContinue;
+            int iTrigCondition;
             int iTrigChannel = 0;
             int iTrigLevel = 0;
-            int iTrigCondition = LARunClass.LA_TRIG_CHANGE;
+
+            if (sequential == "0")
+            {
+                Console.WriteLine("Combinational Circuit!");
+                iTrigContinue = LARunClass.TR_END;
+                iTrigCondition = LARunClass.LA_TRIG_CHANGE;
+            }
+            else
+            {
+                Console.WriteLine("Sequential Circuit!");
+                iTrigContinue = LARunClass.TR_CONTINUE;
+                iTrigCondition = LARunClass.LA_TRIG_FALLING;
+            }
             //int iTrigContinue = LARunClass.TR_CONTINUE;  //TR_NEXT 0x00 兩觸發條件必須連續達成，中間不可以有其他不同訊號
             //int iTrigContinue = LARunClass.TR_END;      // TR_TRIGGER 0x02 觸發條件已全部設定完畢，啟動觸發
             if (!m_LARun.ulaSDKClearTrigger(ref m_tr))  //clear the trigger setting to free run
@@ -79,7 +94,7 @@ namespace C_Sharp
                 ShowErrorCode();
                 return;
             }
-            if (!m_LARun.ulaSDKSetChTrigger(ref m_tr, iTrigLevel, iTrigChannel, iTrigCondition, 0x02)) //set trigger for level 0
+            if (!m_LARun.ulaSDKSetChTrigger(ref m_tr, iTrigLevel, iTrigChannel, iTrigCondition, iTrigContinue)) //set trigger for level 0
             {
                 ShowErrorCode();
                 return;
@@ -104,7 +119,12 @@ namespace C_Sharp
             m_tr.iFlag = LARunClass.TR_PRETRIG;
             m_tr.iFreq = (uint)(200E6);
             m_tr.iFreqHi = (int)((UInt64)200E6 >> 32);
-            m_tr.iPassCount = 0;					// No Pass Count
+
+            if(sequential == "1")
+                m_tr.iPassCount = 1;					// 用來做reset count
+            else
+                m_tr.iPassCount = 0;
+
             m_tr.iTrPos = 50;						// Trigger signal located at point 50
             m_tr.iWidth = 0;                        // for LA2000P
 
@@ -297,7 +317,7 @@ namespace C_Sharp
             }
         }
 
-        private void run_Main(string hwName,string pgvName,string index)
+        private void run_Main(string hwName,string pgvName,string sequen)
         {
             m_LARun = new LARunClass();
             m_giHwMode = LARunClass.LA_HW_MODE.HW_200M_36CH;
@@ -310,6 +330,7 @@ namespace C_Sharp
             HWName = hwName;
             homeworkPath = hwName + "\\" + pgvName + ".txt";
             homeworkPathLaw = hwName + "\\" + pgvName;
+            sequential = sequen;
 
             GetHW();
             Thread.Sleep(5000);

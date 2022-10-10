@@ -1,0 +1,3 @@
+module trafficLight(clk,reset,LightA,LightB);
+
+input
