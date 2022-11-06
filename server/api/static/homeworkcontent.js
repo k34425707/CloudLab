@@ -64,6 +64,7 @@ function A1_upload_file() {
     formData.append('workType', 1);
     formData.append('className', $('#courseName').text().split(":")[1]);
     formData.append('homeworkName', $('#oldhomeworkName').text());
+    formData.append('sequential',document.querySelector('input[name="sequential"]:checked').value)
     formData.append('pgvFile', document.getElementById('pgv1').files[0]);
     formData.append('pgvFile2', document.getElementById('pgv2').files[0]);
     formData.append('pgvFile3', document.getElementById('pgv3').files[0]);

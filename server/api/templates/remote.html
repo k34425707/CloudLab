@@ -63,6 +63,10 @@
                 </nav>
                 <div class="center">
                     <div >
+                        <div >
+                            <input  type="radio" name="sequential" id="sequential" value="1">序向邏輯
+                            <input  type="radio" name="sequential" id="not_sequential" value="0" checked>組合邏輯
+                          </div>
                         <div>
                             <input id="soffile" type="file" style="display: none;" accept=".sof" value="上傳"></input>
                             <label id="sofupload" for="soffile"><img class="uploadimg" src="{{ url_for('static', filename = 'upload01.png')}}"></label>

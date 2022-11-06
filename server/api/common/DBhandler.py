@@ -39,7 +39,7 @@ class DBhandler():
     def create_new_course_table(self,name):
         with self.__connection.cursor() as cursor:
             cursor.execute(
-            "CREATE TABLE IF NOT EXISTS "+name+"( \
+            "CREATE TABLE IF NOT EXISTS `"+name+"`( \
                 userID varchar(50) NOT NULL, \
                 userName varchar(3) NOT NULL, \
                 total_score  int NOT NULL, \
@@ -49,7 +49,7 @@ class DBhandler():
             self.__connection.commit()
 
             cursor.execute(
-            "CREATE TABLE IF NOT EXISTS "+name+"_HW( \
+            "CREATE TABLE IF NOT EXISTS `"+name+"_HW`( \
                 homeworkInfo text NOT NULL, \
                 homeworkName varchar(20) NOT NULL, \
                 txtName  varchar(64) , \
@@ -58,6 +58,7 @@ class DBhandler():
                 score  int,\
                 score2 int,\
                 score3 int,\
+                sequential varchar(10) DEFAULT '0',\
                 PRIMARY KEY(homeworkName)\
             );")
             self.__connection.commit()

@@ -27,6 +27,7 @@ function do_pay() {
     formData.append('sofFile', document.getElementById('soffile').files[0]);
     formData.append('pgvFile', document.getElementById('pgvfile').files[0]);
     formData.append('workType', 0);
+    formData.append('sequential',document.querySelector('input[name="sequential"]:checked').value)
     document.getElementById("law").innerHTML="<button class='btn btn-primary' style='color: black; background-color: white; border-color: white;' type='button' disabled><span class='spinner-border spinner-border-sm' style='color: black;' role='status' aria-hidden='true'></span> 燒錄中...</button>"
     document.getElementById("sof").innerHTML="<th><a href='/getfile/sof' download>sof載點</a></th>"
     document.getElementById("pgv").innerHTML="<th><a href='/getfile/pgv' download>pgv載點</a></th>"

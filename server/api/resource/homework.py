@@ -66,7 +66,7 @@ class homework(Resource):
                 }
             sql="INSERT INTO "+arg["courseName"]+"_HW (`homeworkInfo`,`homeworkName`) VALUES (\"{}\",\"{}\")".format(arg['homeworkInfo'],arg['homeworkName'])
             self.db.query(sql,False)
-            sql="ALTER TABLE "+arg["courseName"]+" ADD `"+arg["homeworkName"]+"` JSON;"
+            sql="ALTER TABLE `"+arg["courseName"]+"` ADD `"+arg["homeworkName"]+"` JSON;"
             print(sql)
             self.db.query(sql,False)
             return {

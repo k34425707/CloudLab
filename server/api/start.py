@@ -103,7 +103,7 @@ def homeworkbrowse(courseName):
     if(courseName in courses):
         sql="SELECT homeworkName FROM "+courseName+"_HW "
         hw_result=db.query(sql,True)
-        sql="SELECT userID,userName FROM "+courseName
+        sql="SELECT userID,userName FROM `"+courseName+"`"
         member_result=db.query(sql,True)
         print(authorization)
         print(hw_result)
@@ -129,7 +129,7 @@ def homeworkcontent(courseName,hwName):
             "test3":"沒有成績"
         }
         if authorization=="0":
-            sql="SELECT `"+hwName+"` FROM "+courseName+"  WHERE `userID`=\""+userID+"\""
+            sql="SELECT `"+hwName+"` FROM `"+courseName+"`  WHERE `userID`=\""+userID+"\""
             result = db.query(sql,True)
             print(result)
             # print(db.query(sql,True)[0][hwName])
@@ -195,7 +195,7 @@ def getSummitStatus(courseName,hwName):
         "test2":"沒有成績",
         "test3":"沒有成績"
     }
-    sql="SELECT "+hwName+" FROM "+courseName+"  WHERE `userID`=\""+userID+"\""
+    sql="SELECT `"+hwName+"` FROM `"+courseName+"`  WHERE `userID`=\""+userID+"\""
     result = db.query(sql,True)
     print(sql)
     print(result)

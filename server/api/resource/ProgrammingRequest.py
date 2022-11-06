@@ -293,11 +293,11 @@ class ProgrammingRequest(Resource):
                     # # print(result[0]['courseID'])
                     tableName = className + "_HW"
                     #get the pgv files name
-                    sqlStatement = "SELECT txtName,txtName2,txtName3,sequential FROM " + tableName + " WHERE homeworkName = '" + homeworkName + "';"
+                    sqlStatement = "SELECT txtName,txtName2,txtName3,sequential FROM `" + tableName + "` WHERE homeworkName = '" + homeworkName + "';"
                     # sqlStatement = "SELECT txtName,txtName2,txtName3 FROM " + tableName + " WHERE homeworkName = '" + homeworkName + "';"
                     result = db.query(sqlStatement,True)
-                    # print("The result:")
-                    # print(result)
+                    print("The result:")
+                    print(result)
                     pgvName1 = result[0]['txtName']
                     file1 = pgvName1[:-4] + ".txt"
                     pgvName2 = result[0]['txtName2']
@@ -358,7 +358,7 @@ class ProgrammingRequest(Resource):
                 ### write Quartus programming bat file
                 with open(batPath + "Programming_run.bat",'w') as fileWrite:
                     fileWrite.write("cd " + UPLOAD_FOLDER)
-                    fileWrite.write("\nC:\\altera\\13.0\\quartus\\bin64\\quartus_pgm.exe -m JTAG -o p;{}".format(sofName))
+                    fileWrite.write("\nC:\\altera\\13.1\\quartus\\bin64\\quartus_pgm.exe -m JTAG -o p;{}".format(sofName))
                 ###
 
                 ### programming the DE0 board
@@ -623,7 +623,7 @@ class ProgrammingRequest(Resource):
 
                     tableName = className + "_HW"
 
-                    sqlStatement = "UPDATE " + tableName + " SET `txtName` = '" + pgvName1 + "', `txtName2` = '" + pgvName2 + "', `txtName3` = '" + pgvName3 + "', `sequential` = '" + sequential + "' WHERE `homeworkName` = '" + homeworkName + "';"
+                    sqlStatement = "UPDATE `" + tableName + "` SET `txtName` = '" + pgvName1 + "', `txtName2` = '" + pgvName2 + "', `txtName3` = '" + pgvName3 + "', `sequential` = '" + sequential + "' WHERE `homeworkName` = '" + homeworkName + "';"
                     # sqlStatement = "UPDATE " + tableName + " SET `txtName` = '" + pgvName1 + "', `txtName2` = '" + pgvName2 + "', `txtName3` = '" + pgvName3 + "' WHERE `homeworkName` = '" + homeworkName + "';"
                     db.query(sqlStatement,False)
                     print("the sqlStatement:")
@@ -638,7 +638,7 @@ class ProgrammingRequest(Resource):
                     db = DBhandler('localhost','root','','remote_lab')
 
                     ###讀取每個測資的分數
-                    sqlStatement = "SELECT score,score2,score3 FROM " + tableName + " WHERE homeworkName = '" + homeworkName + "';"
+                    sqlStatement = "SELECT score,score2,score3 FROM `" + tableName + "` WHERE homeworkName = '" + homeworkName + "';"
                     result = db.query(sqlStatement,True)
                     hwScores.append(result[0]['score'])
                     hwScores.append(result[0]['score2'])

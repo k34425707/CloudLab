@@ -33,10 +33,11 @@ class course(Resource):
             self.db.create_new_course_table(arg['courseName'])
             courses=user[0]["course"].split("/")
             courses.append(arg["courseName"])
-            courses.remove("")
+            if "" in courses:
+                courses.remove("")
             sql="UPDATE user SET course=\""+"/".join(courses)+"\" WHERE userID=\""+user[0]["userID"]+"\""
             self.db.query(sql,False)
-            self.sql="INSERT INTO "+arg['courseName']+ " (`userID`,`userName`) VALUES (\"{}\",\"{}\")".format(user[0]["userID"],user[0]["userName"])
+            self.sql="INSERT INTO `"+arg['courseName']+ "` (`userID`,`userName`) VALUES (\"{}\",\"{}\")".format(user[0]["userID"],user[0]["userName"])
             self.db.query(self.sql,False)
             return {
                 "success":"t",
@@ -57,7 +58,7 @@ class course(Resource):
         user=self.db.query(self.sql,True)
         courses=user[0]["course"].split("/")
         if user[0]["authorization"]=="1" and arg["courseName"] in courses:
-            self.sql="SELECT userID FROM "+arg["courseName"]
+            self.sql="SELECT userID FROM `"+arg["courseName"]+"`"
             course_member=self.db.query(self.sql,True)
             for member in course_member:
                 self.sql="SELECT course FROM user WHERE `userID` =\""+member["userID"]+"\""
