@@ -139,7 +139,7 @@ function renewLAW(){
         success: function(response){
             console.log(response)
             if(response.success=="t" && response.status=="0"){
-                document.getElementById("law_produced").innerHTML="ㄗ<button class='btn btn-primary' style='color: black; background-color: white; border-color: white;' type='button' disabled><span class='spinner-border spinner-border-sm' style='color: black;' role='status' aria-hidden='true'></span> 燒錄中...</button>"
+                document.getElementById("law_produced").innerHTML="<button class='btn btn-primary' style='color: black; background-color: white; border-color: white;' type='button' disabled><span class='spinner-border spinner-border-sm' style='color: black;' role='status' aria-hidden='true'></span> 燒錄中...</button>"
                 document.getElementById("time").innerHTML=response.time;
                 console.log("settimeout");
                 setTimeout("renewLAW()",10000);
